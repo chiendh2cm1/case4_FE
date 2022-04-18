@@ -26,6 +26,7 @@ function getProductByPage(page) {
         <td>${i + 1}</td>
         <td>${products[i].name}</td>
         <td>${products[i].price}</td>
+         <td>${products[i].quantity}</td>
         <td>${products[i].description}</td>
         <td><img src="http://localhost:8080/image/${products[i].image}" height="100"></td>
         <td>${products[i].category != null ? products[i].category.name : "-"}</td>
@@ -67,8 +68,9 @@ function findProductByName(page) {
         <td>${i + 1}</td>
         <td>${products[i].name}</td>
         <td>${products[i].price}</td>
+        <td>${products[i].quantity}</td>
         <td>${products[i].description}</td>
-        <td><img src="http://localhost:8080/image/${products[i].image}" height="100"></td>
+        <td><img src="http://localhost:8080/image/${products[i].image}" height="100" width="100"></td>
         <td>${products[i].category != null ? products[i].category.name : "-"}</td>
         <td><button class="btn btn-primary" data-target="#create-product" data-toggle="modal"
                                         type="button" onclick="showEditProduct(${products[i].id})"><i class="fa fa-edit"></i></button></td>
@@ -95,12 +97,14 @@ function findProductByName(page) {
 function createNewProduct() {
     let name = $('#name').val();
     let price = $('#price').val();
+    let quantity = $('#quantity').val();
     let description = $('#description').val();
     let image = $('#image');
     let category = $('#category').val();
     let product = new FormData();
     product.append('name', name);
     product.append('price', price);
+    product.append('quantity', quantity);
     product.append('description', description);
     product.append('category', category);
     product.append('image', image.prop('files')[0])

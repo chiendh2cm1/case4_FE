@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="drawHTML">
 
 
 <!-- molla/index-1.html  22 Nov 2019 09:55:06 GMT -->
@@ -92,7 +92,7 @@
                         <i class="icon-bars"></i>
                     </button>
 
-                    <a href="index.html" class="logo">
+                    <a href="indexmau.html" class="logo">
                         <img src="assets/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
                     </a>
                 </div><!-- End .header-left -->
@@ -125,16 +125,18 @@
                            aria-expanded="false" data-display="static">
                             <div class="icon">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count" id="countItem">
+
+                                </span>
                             </div>
                             <p>Cart</p>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-cart-action">
-                                <a href="http://localhost:63343/case4_FE/cart.html?_ijt=oh9q16auo289e65a459qtk5oae&_ij_reload=RELOAD_ON_SAVE"
+                                <a href="cart.html"
                                    class="btn btn-primary">View Cart</a>
-                                <a href="http://localhost:63343/case4_FE/checkout.html?_ijt=oh9q16auo289e65a459qtk5oae&_ij_reload=RELOAD_ON_SAVE"
+                                <a href="checkout.html"
                                    class="btn btn-outline-primary-2"><span>Checkout</span><i
                                         class="icon-long-arrow-right"></i></a>
                             </div><!-- End .dropdown-cart-total -->
@@ -166,11 +168,6 @@
                         <ul class="menu sf-arrows" id="showCategoryByShop">
 
 
-
-
-
-
-
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->
                 </div><!-- End .header-center -->
@@ -180,15 +177,16 @@
 
     <main class="main">
         <div class="intro-slider-container">
-            <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{"nav": false}'>
-                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/slide-1.jpg);">
+            <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl"
+                 data-owl-options='{"nav": false}'>
+                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/sony.jpg);">
                     <div class="container intro-content">
-                        <h1 class="intro-title">Good For You<br>A Lot Of Choice .</h1><!-- End .intro-title -->
+                        <h1 class="intro-title">Hello C1121G1<br>A Lot Of Choice .</h1><!-- End .intro-title -->
                     </div><!-- End .container intro-content -->
                 </div><!-- End .intro-slide -->
-                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/slide-2.jpg);">
+                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/sony.jpg);">
                 </div><!-- End .intro-slide -->
-                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/slide-3.jpg);">
+                <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/bg1.jpg);">
                 </div><!-- End .intro-slide -->
             </div><!-- End .owl-carousel owl-simple -->
 
@@ -260,7 +258,9 @@
                         <div class="products">
                             <div class="row justify-content-center" id="product-body">
                             </div><!-- End .row -->
-                            <div id="product-list-page"></div>
+                            <div id="product-list-page">
+
+                            </div>
                         </div><!-- End .products -->
                     </div><!-- End .products -->
                 </div><!-- .End .tab-pane -->
@@ -662,14 +662,6 @@
                                             <span>LOG IN</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </button>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                            <label class="custom-control-label" for="signin-remember">Remember
-                                                Me</label>
-                                        </div><!-- End .custom-checkbox -->
-
-                                        <a href="#" class="forgot-link">You are not registered?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
                                 <div class="form-choice">
@@ -699,13 +691,13 @@
                                         <p style="color: red" id="checked-fullName"></p>
                                     </div><!-- End .form-group -->
                                     <div class="form-group">
-                                        <label for="username">UserName *</label>
+                                        <label for="username">UserName *(from 6 to 18 characters)</label>
                                         <input type="text" class="form-control" id="username" name="username"
                                                onchange="checkUserName()">
                                         <p style="color: red" id="checked-username"></p>
                                     </div><!-- End .form-group -->
                                     <div class="form-group">
-                                        <label for="register-password">Password *</label>
+                                        <label for="register-password">Password *(from 6 to 16 characters)</label>
                                         <input type="password" class="form-control" id="register-password"
                                                name="register-password" onchange="checkPassWord()">
                                         <p style="color: red" id="checked-password"></p>
@@ -717,7 +709,7 @@
                                         <p style="color: red" id="checked-email"></p>
                                     </div><!-- End .form-group -->
                                     <div class="form-group">
-                                        <label for="phonenumber">PhoneNumber *</label>
+                                        <label for="phonenumber">PhoneNumber *(0xxxxxxxxx)</label>
                                         <input type="text" class="form-control" id="phonenumber" name="phonenumber"
                                                onchange="checkPhone()">
                                         <p style="color: red" id="checked-phone"></p>
@@ -783,10 +775,10 @@
 <!-- Main JS File -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/demos/demo-2.js"></script>
-<script src="login/login.js"></script>
 <script src="register/validateRegister.js"></script>
-<script src="user/shop.js"></script>
 <script src="register/register.js"></script>
+<script src="login/login.js"></script>
+<script src="user/shop.js"></script>
 <script src="user/productchien.js"></script>
 </body>
 

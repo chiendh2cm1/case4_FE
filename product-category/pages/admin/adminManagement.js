@@ -20,22 +20,24 @@ function getUserByPage(page) {
         success: function (data) {
             let content = '';
             let users = data.content;
-            for (let i = 1 ; i < users.length; i++) {
+            for (let i = 0 ; i < users.length; i++) {
                 content += `<tr>
-        <td>${i + 1}</td>
+        <td>${i}</td>
         <td>${users[i].username}</td>
         <td>${users[i].fullName}</td>
         <td>${users[i].email}</td>
         <td>${users[i].phoneNumber}</td>
    <td>${users[i].role != null ? users[i].role : "-"}</td>
+           <td><button class="btn btn-primary" data-target="#create-product" data-toggle="modal"
+                                        type="button" onclick="showEditUser(${users[i].id})"><i class="fa fa-edit"></i></button></td>
         <td><button class="btn btn-danger" data-target="#delete-product" data-toggle="modal"
                                         type="button" onclick="showDeleteUser(${users[i].id})"><i class="fa fa-trash"></i></button></td>
     </tr>`
             }
             $('#user-list-content').html(content);
-            let page = `<button class="btn btn-primary" id="backup" onclick="getProductByPage(${data.pageable.pageNumber}-1)">Previous</button>
+            let page = `<button class="btn btn-primary" id="backup" onclick=" getUserByPage(${data.pageable.pageNumber}-1)">Previous</button>
     <span>${data.pageable.pageNumber + 1} | ${data.totalPages}</span>
-    <button class="btn btn-primary" id="next" onclick="getProductByPage(${data.pageable.pageNumber}+1)">Next</button>`
+    <button class="btn btn-primary" id="next" onclick=" getUserByPage(${data.pageable.pageNumber}+1)">Next</button>`
             $('#user-list-page').html(page);
             if (data.pageable.pageNumber === 0) {
                 document.getElementById("backup").hidden = true
@@ -65,6 +67,8 @@ function findUserByName() {
         <td>${users.email}</td>
         <td>${users.phoneNumber}</td>
    <td>${users.role != null ? users.role : "-"}</td>
+   <td><button class="btn btn-primary" data-target="#create-product" data-toggle="modal"
+                                        type="button" onclick="showEditUser(${users.id})"><i class="fa fa-edit"></i></button></td>
         <td><button class="btn btn-danger" data-target="#delete-product" data-toggle="modal"
                                         type="button" onclick="showDeleteUser(${users.id})"><i class="fa fa-trash"></i></button></td>
     </tr>`
@@ -100,3 +104,50 @@ function showDeleteUser(id) {
 $(document).ready(function () {
     getUserByPage();
 })
+
+function showEditUser(id) {
+    let title = 'Khóa tài khoản';
+    let footer = `<button class="btn btn-secondary" data-dismiss="modal" type="button">Đóng</button>
+                    <button class="btn btn-primary" onclick="editUser(${id})" type="button" aria-label="Close" class="close" data-dismiss="modal">Cập nhật</button>`;
+    $('#create-user-title').html(title);
+    $('#create-user-footer').html(footer);
+    $.ajax({
+        type: 'GET',
+        url: `http://localhost:8080/users/${id}`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (user) {
+            $('#roleuser').val(user.role);
+        }
+    })
+}
+
+function editUser(id) {
+    let role = $('#roleuser').val();
+    let user = {
+        role: role
+    }
+    $.ajax({
+        type: 'PUT',
+        url: `http://localhost:8080/users/${id}`,
+        data: JSON.stringify(user),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function () {
+            getUserByPage();
+            showSuccessMessage('Sửa thành công!');
+        },
+        error: function () {
+            showErrorMessage('Sửa lỗi!');
+        }
+    })
+}
+
+function exitAdmin() {
+    localStorage.removeItem('currentUser');
+    location.href = "/case4_FE/indexmau.html";
+}

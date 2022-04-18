@@ -1,14 +1,15 @@
-
-  let currentUser = localStorage.getItem('currentUser');
+let currentUser = localStorage.getItem('currentUser');
 currentUser = JSON.parse(currentUser);// ep chuoi ve doi tuong
-  function showNameUser(){
-      let nameUser = "";
-      nameUser = `<p class="d-block" href="#" style="color: white">Chào ${currentUser.username}</p>`
-      $('#name-admin').html(nameUser);
-  }
-  $(document).ready(function () {
-      showNameUser();
-  })
+function showNameUser() {
+    let nameUser = "";
+    nameUser = `<p class="d-block" href="#" style="color: white">Chào ${currentUser.username}</p>`
+    $('#name-admin').html(nameUser);
+}
+
+$(document).ready(function () {
+    showNameUser();
+})
+
 
 function getAllCategory() {
     $.ajax({
@@ -22,7 +23,7 @@ function getAllCategory() {
             for (let i = 0; i < categories.length; i++) {
                 content += `<tr>
         <td>${i + 1}</td>
-        <td> <u onclick="showDetail(${categories[i].id})">${categories[i].name}</u></td>
+        <td><u onclick="showDetail(${categories[i].id})">${categories[i].name}</u></td>
     <td><button class="btn btn-primary" data-target="#create-category" data-toggle="modal"
                                         type="button" onclick="showEditCategory(${categories[i].id})"><i class="fa fa-edit"></i></button></td>
         <td><button class="btn btn-danger" data-target="#delete-category" data-toggle="modal"
@@ -70,25 +71,38 @@ function showDetail(id) {
 }
 
 function createNewCategory() {
-    let name = $('#name').val();
-    let category = {
-        name: name
-    }
     $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8080/categories',
-        data: JSON.stringify(category),
+        type: `GET`,
+        url: `http://localhost:8080/shops/findShopByUser/${currentUser.id}`,
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + currentUser.token,
+            'Authorization': 'Bearer ' + currentUser.token
         },
-        success: function () {
-            getAllCategory();
-            showSuccessMessage('Tạo thành công');
-        },
-        error: function () {
-            showErrorMessage('Tạo lỗi');
+        success: function (data) {
+            let shopId = `${data.id}`;
+            let name = $('#name').val();
+            let category = {
+                name: name,
+                shop: {
+                    id: shopId
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/categories',
+                data: JSON.stringify(category),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token,
+                },
+                success: function () {
+                    getAllCategory();
+                    showSuccessMessage('Tạo thành công');
+                },
+                error: function () {
+                    showErrorMessage('Tạo lỗi');
+                }
+            })
         }
     })
 }
@@ -201,6 +215,7 @@ function deleteCategory(id) {
         }
     })
 }
+
 
 $(document).ready(function () {
     getAllCategory();

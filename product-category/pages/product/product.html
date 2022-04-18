@@ -42,7 +42,7 @@
         <a class="brand-link" href="/case4_FE/product-category/index.html">
             <img alt="AdminLTE Logo" class="brand-image img-circle elevation-3" src="../../dist/img/AdminLTELogo.png"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Home</span>
         </a>
 
         <!-- Sidebar -->
@@ -58,11 +58,12 @@
 
             <!-- SidebarSearch Form -->
             <div class="form-inline">
-                <div class="input-group" >
+                <div class="input-group">
                     <input aria-label="Search" id="q" class="form-control form-control-sidebar" placeholder="Search"
                            type="search">
                     <div class="input-group-append">
-                        <button class="btn btn-sidebar" onclick="findProductByName()" aria-label="Close" class="close" data-dismiss="modal">
+                        <button class="btn btn-sidebar" onclick="findProductByName()" aria-label="Close" class="close"
+                                data-dismiss="modal">
                             <i class="fas fa-search fa-fw"></i>
                         </button>
                     </div>
@@ -87,12 +88,6 @@
                                 <a class="nav-link" href="../category/category.html">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Quản lý danh mục</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../bill/bill.html">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Quản lý Bill</p>
                                 </a>
                             </li>
                         </ul>
@@ -141,6 +136,7 @@
                                         <th>#</th>
                                         <th>Tên sản phẩm</th>
                                         <th>Giá sản phẩm</th>
+                                        <th>Số Lượng sản phẩm</th>
                                         <th>Mô tả sản phẩm</th>
                                         <th>Ảnh sản phẩm</th>
                                         <th>Thư mục</th>
@@ -187,6 +183,10 @@
                         <input class="form-control" id="price" placeholder="Nhập giá sản phẩm" type="text">
                     </div>
                     <div class="form-group">
+                        <label for="quantity">Số lượng sản phẩm</label>
+                        <input class="form-control" id="quantity" placeholder="Nhập số lượng" type="text">
+                    </div>
+                    <div class="form-group">
                         <label for="description">Mô tả sản phẩm</label>
                         <input class="form-control" id="description" placeholder="Nhập mô tả sản phẩm" type="text">
                     </div>
@@ -223,7 +223,8 @@
                 <div class="modal-body">
                     <p>Bạn có muốn xóa không?</p>
                 </div>
-                `<div class="modal-footer justify-content-between" id="footer-delete">
+                `
+                <div class="modal-footer justify-content-between" id="footer-delete">
                 </div>
             </div>
             <!-- /.modal-content -->

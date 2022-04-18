@@ -1,6 +1,3 @@
-let currentUser = localStorage.getItem('currentUser');
-currentUser = JSON.parse(currentUser);// ep chuoi ve doi tuong
-
 function showNameUser() {
     let nameUser = "";
     if (currentUser.username != null) {
@@ -38,6 +35,9 @@ function getProductByPage(page) {
     })
     event.preventDefault();
 }
+$(document).ready(function () {
+    getProductByPage();
+})
 
 function findProductByName(page) {
     let q = $('#q').val();
@@ -49,9 +49,9 @@ function findProductByName(page) {
             let products = data.content;
             content += showLishProduct(products);
             $('#product-body').html(content);
-            let page = `<button class="btn btn-primary" id="backup" onclick="getProductByPage(${data.pageable.pageNumber}-1)">Previous</button>
+            let page = `<button class="btn btn-primary" id="backup" onclick="findProductByName(${data.pageable.pageNumber}-1)">Previous</button>
     <span>${data.pageable.pageNumber + 1} | ${data.totalPages}</span>
-    <button class="btn btn-primary" id="next" onclick="getProductByPage(${data.pageable.pageNumber}+1)">Next</button>`
+    <button class="btn btn-primary" id="next" onclick="findProductByName(${data.pageable.pageNumber}+1)">Next</button>`
             $('#product-list-page').html(page);
             if (data.pageable.pageNumber === 0) {
                 document.getElementById("backup").hidden = true
